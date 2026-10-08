@@ -11,12 +11,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // Disable CSRF for stateless REST APIs
             .csrf().disable()
             .authorizeRequests()
-                // Allow public access to login/auth endpoints
-                .antMatchers("/api/auth/**").permitAll()
-                // Require authentication for everything else
+                .antMatchers("/", "/api/auth/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();
